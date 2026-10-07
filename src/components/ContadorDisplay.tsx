@@ -21,6 +21,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export interface ContadorDisplayProps {
   /** Número que se muestra (ya lo calculó el contenedor). */
   valor: number;
+
   /** Texto opcional que describe el contador. Si no viene, no se dibuja. */
   etiqueta?: string;
 }
@@ -34,16 +35,32 @@ export interface ContadorDisplayProps {
  *
  * @param props - Ver la interfaz `ContadorDisplayProps`.
  */
-export function ContadorDisplay({ valor, etiqueta }: ContadorDisplayProps) {
+export function ContadorDisplay({
+  valor,
+  etiqueta,
+}: ContadorDisplayProps) {
+
   return (
     <View style={styles.wrap}>
-      {/* 🤔 ¿Cómo muestras la etiqueta solo cuando viene, sin romper si falta? */}
-      <Text style={styles.valor}>{valor}</Text>
+
+      {/* La etiqueta solo aparece si existe */}
+      {etiqueta && (
+        <Text style={styles.etiqueta}>
+          {etiqueta}
+        </Text>
+      )}
+
+      {/* Valor del contador */}
+      <Text style={styles.valor}>
+        {valor}
+      </Text>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
   wrap: {
     alignItems: 'center',
     padding: 16,
@@ -52,15 +69,25 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#FFFDF9',
   },
+
   etiqueta: {
     fontSize: 13,
     fontWeight: '700',
     textTransform: 'uppercase',
     color: '#0A0A0A',
+    marginBottom: 5,
   },
+
   valor: {
     fontSize: 44,
     fontWeight: '900',
     color: '#0A0A0A',
   },
+
 });
+
+{etiqueta && (
+  <Text style={styles.etiqueta}>
+    {etiqueta}
+  </Text>
+)}
